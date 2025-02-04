@@ -1,18 +1,16 @@
 import { styled } from "..";
 
-export const HomeContainer = styled('main',{
+export const HomeContainer = styled('main', {
   display: 'flex',
-  //gap: '3rem',
   width: '100%',
-  maxWidth: 'calc(100vw - ((100vw - 1180px))/2)',
+  maxWidth: 'calc(100vw - ((100vw - 1180px) / 2))',
   marginLeft: 'auto',
   minHeight: 656
 })
 
-export const Product = styled('div',{
+export const Product = styled('div', {
   background: 'linear-gradient(180deg, #1ea483 0%, #7465d4 100%)',
   borderRadius: 8,
-  //padding: '0.25rem',
   cursor: 'pointer',
   position: 'relative',
   overflow: 'hidden',
@@ -21,11 +19,11 @@ export const Product = styled('div',{
   alignItems: 'center',
   justifyContent: 'center',
 
-  img:{
+  img: {
     objectFit: 'cover'
   },
 
-  footer:{
+  footer: {
     position: 'absolute',
     bottom: '0.25rem',
     left: '0.25rem',
@@ -40,27 +38,26 @@ export const Product = styled('div',{
 
     backgroundColor: 'rgba(0, 0, 0, 0.6)',
 
-    transform: 'translateY(100%)',
+    transform: 'translateY(110%)',
     opacity: 0,
     transition: 'all 0.2s ease-in-out',
 
-    strong:{
+    strong: {
       fontSize: '$lg',
-      textDecoration: 'none',
-      color: '$gray100'
+      color: '$gray100',
     },
 
-    span:{
+    span: {
       fontSize: '$xl',
       fontWeight: 'bold',
       color: '$green300'
-    }
+    },
   },
 
-  '&:hover':{
-    footer:{
+  '&:hover': {
+    footer: {
       transform: 'translateY(0%)',
-      opacity: 1,
+      opacity: 1
     }
   }
 })
