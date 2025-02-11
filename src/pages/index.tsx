@@ -12,6 +12,7 @@ import type { GetStaticProps } from "next"
 import type Stripe from "stripe"
 import Link from "next/link"
 
+import cartIcon from '@/assets/cart/cartIconWhite.svg'
 
 interface HomeProps{
   products:{
@@ -30,6 +31,7 @@ export default function Home({products}: HomeProps) {
     }
   })
 
+
   return (
     <>
     <Head>
@@ -43,8 +45,11 @@ export default function Home({products}: HomeProps) {
           <Product className="keen-slider__slide" >
             <Image src={product.imageUrl} width={520} height={480} alt=""/>
             <footer>
-              <strong>{product.name}</strong>
-              <span>{product.price}</span>
+              <div>
+                <strong>{product.name}</strong>
+                <span>{product.price}</span>
+              </div>
+              <button><Image src={cartIcon} alt="" width={24} height={24}/></button>
             </footer>
           </Product>
           </Link>

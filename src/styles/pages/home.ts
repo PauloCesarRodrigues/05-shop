@@ -23,6 +23,7 @@ export const Product = styled('div', {
     objectFit: 'cover'
   },
 
+
   footer: {
     position: 'absolute',
     bottom: '0.25rem',
@@ -42,16 +43,33 @@ export const Product = styled('div', {
     opacity: 0,
     transition: 'all 0.2s ease-in-out',
 
-    strong: {
-      fontSize: '$lg',
-      color: '$gray100',
+    div:{
+      display: 'flex',
+      alignItems: 'left',
+      flexDirection: 'column',
+
+      strong: {
+        fontSize: '$lg',
+        color: '$gray100',
+      },
+  
+      span: {
+        fontSize: '$xl',
+        fontWeight: 'bold',
+        color: '$green300'
+      }
     },
 
-    span: {
-      fontSize: '$xl',
-      fontWeight: 'bold',
-      color: '$green300'
-    },
+    button:{
+      padding: '12px',
+
+      backgroundColor: '$green500',
+      outline: 'none',
+      border: 'none,',
+      borderRadius: 8,
+
+      cursor: 'pointer',
+    }
   },
 
   '&:hover': {
