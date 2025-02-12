@@ -7,12 +7,6 @@ import Head from "next/head";
 import Image from "next/image";
 import { useState } from "react";
 import type Stripe from "stripe";
-//import dynamic from "next/dynamic";
-
-/*const useShoppingCart = dynamic(
-  () => import("use-shopping-cart").then((mod) => mod.useShoppingCart),
-  { ssr: false } 
-);*/
 
 interface ProductProps {
   product: {
@@ -28,7 +22,6 @@ interface ProductProps {
 
 export default function Product({ product }: ProductProps) {
   const [isCreatingCheckoutSession, setIsCreatingCheckoutSession] = useState(false);
-  //const { addItem } = useShoppingCart();
 
   async function handleBuyProduct() {
     try {
@@ -43,14 +36,13 @@ export default function Product({ product }: ProductProps) {
       const CartProduct = {
         id: product.id,
         name: product.name,
-        price: product.price, 
+        price: Number(product.price), 
         imageUrl: product.imageUrl,
         description: product.description,
         sku: product.sku,
         currency: "BRL",
       };
 
-      //addItem(CartProduct);
       console.log(CartProduct);
 
 
