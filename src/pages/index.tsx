@@ -64,16 +64,11 @@ export default function Home({products, changeCartVisibility}: HomeProps) {
     };
 
     const productId = product.id
-
-
     
     if (cartDetails && cartDetails[productId] && cartDetails[productId].quantity >= 1) return
 
-
     addItem(CartProduct)
 
-    console.log('produto:' + CartProduct)
-    console.log('priceId:' + CartProduct.priceId)
     
     setTimeout(()=>{
       changeCartVisibility(false)

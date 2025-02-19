@@ -38,10 +38,6 @@ export function CartComponent({ isCartClosed, setIsCartClosed }: CartComponentPr
     setCheckoutButtonDisabled(Number(cartCount) < 1);
   }, [cartCount]);
 
-  setTimeout(()=>{
-    console.log(cartDetails)
-  }, 500)
-
   const produtos = Object.values(cartDetails ?? {});
 
   const checkoutSessionData: checkoutSessionDataProps = {
@@ -61,7 +57,9 @@ export function CartComponent({ isCartClosed, setIsCartClosed }: CartComponentPr
       }));
 
       try{
-        const response = await axios.post('/api/checkout', checkoutSessionData)
+        const response = await axios.post('/api/checkout', {
+          checkoutData: JSON.stringify(checkoutSessionData)
+        })
 
         const { checkoutUrl } = response.data
 
