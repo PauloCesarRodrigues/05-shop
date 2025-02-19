@@ -1,5 +1,5 @@
 import { stripe } from "@/lib/stripe";
-import { ImageContainer, SuccessContainer } from "@/styles/pages/success";
+import { ImageContainer, SuccessContainer, SucessImagesContainer } from "@/styles/pages/success";
 import type { GetServerSideProps } from "next";
 import Head from "next/head";
 import Image from "next/image";
@@ -8,13 +8,16 @@ import type Stripe from "stripe";
 
 interface SuccessProps{
   customerName: string
-  product:{
+  products:{
     name: string
     imageUrl: string
-  }
+  }[]
+  productImages: string[]
 }
 
-export default function Success({customerName, product}: SuccessProps){
+export default function Success({customerName, products, productImages}: SuccessProps){
+  
+
   return(
     <>
       <Head>
@@ -26,12 +29,18 @@ export default function Success({customerName, product}: SuccessProps){
 
       <SuccessContainer>
         <h1> Compra efetuada </h1>
-        <ImageContainer>
-            <Image src={product.imageUrl} width={120} height={110} alt="" />
-          </ImageContainer>
+
+        <SucessImagesContainer>
+          {products?.map((product, index) => (
+            <ImageContainer key={index}>
+              <Image src={productImages[index]} width={120} height={110} alt={product.name}/>
+            </ImageContainer>
+          ))}
+        </SucessImagesContainer>
+
 
         <p>
-          Uhuul <strong>{customerName}</strong>, sua <strong>{product.name}</strong> já está a caminho da sua casa.
+          Uhuul <strong>{customerName}</strong>, {products.length > 1 ? 'suas camisas' : 'sua camisa'} já está a caminho da sua casa.
         </p>
 
         <Link href="/">
@@ -59,15 +68,32 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   });
 
   const customerName = session.customer_details?.name;
-  const product = session.line_items?.data[0].price?.product as Stripe.Product;
+  const products = session.line_items!.data
+  const productImages = []
+
+  for(let i = 0; i < products.length; i++){
+    productImages.push(products[i].price?.product.images[0])
+  }
+
+
+
+  console.log('aqui:')
+  console.log('aqui:')
+  console.log('aqui:')
+  console.log('aqui:')
+  console.log('aqui:')
+  console.log('aqui:')
+  console.log('aqui:')
+  console.log('aqui:')
+  console.log(productImages)
+
+
 
   return {
     props: {
       customerName,
-      product: {
-        name: product.name,
-        imageUrl: product.images[0]
-      }
+      products,
+      productImages
     }
   }
 }

@@ -104,7 +104,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         : 0,
         formattedPrice: price.unit_amount ? price.unit_amount: 0,
         description: product.description,
-        defaultPriceId: price.id,
+        priceId: price.id,
         sku: product.id,
       }
     },

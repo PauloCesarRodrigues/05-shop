@@ -32,13 +32,14 @@ interface checkoutSessionDataProps {
 export function CartComponent({ isCartClosed, setIsCartClosed }: CartComponentProps) {
   const [checkoutButtonDisabled, setCheckoutButtonDisabled] = useState(false);
   
-  const { formattedTotalPrice, cartCount, removeItem, cartDetails } = useShoppingCart();
+  const { formattedTotalPrice, cartCount, removeItem, cartDetails, clearCart } = useShoppingCart();
 
   useEffect(() => {
     setCheckoutButtonDisabled(Number(cartCount) < 1);
   }, [cartCount]);
 
   const produtos = Object.values(cartDetails ?? {});
+
 
   const checkoutSessionData: checkoutSessionDataProps = {
       success_url: '/sucess',
@@ -58,12 +59,15 @@ export function CartComponent({ isCartClosed, setIsCartClosed }: CartComponentPr
 
       try{
         const response = await axios.post('/api/checkout', {
-          checkoutData: JSON.stringify(checkoutSessionData)
+          checkoutData: checkoutSessionData
         })
 
         const { checkoutUrl } = response.data
 
         window.location.href = checkoutUrl
+
+        clearCart()
+
       }catch(e){
         console.log('Ocorreu um erro no processo de Checkout' + e)
         setCheckoutButtonDisabled(false)
