@@ -38,9 +38,13 @@ O projeto foi construído com foco em usabilidade, performance e boas práticas 
 5. Acesse a aplicação no navegador através de `http://localhost:3000`  
 
 ## 📷 Screenshots  
+Home Page:
 ![Ignite Shop - Home Page ](https://github.com/user-attachments/assets/4a84634b-9a94-4cc5-b24e-4e9dac0830d2)  
-![Ignite Shop - Product Page](https://github.com/user-attachments/assets/4d8e3fcc-3d1a-4470-9772-bf8f1133679a)
+Product Page:
+![Ignite Shop - Product Page](https://github.com/user-attachments/assets/67ec812f-e77d-45f4-b8b0-d6f4367d40c3)
+Success Page:
 ![Ignite Shop - Success Page](https://github.com/user-attachments/assets/da2d2b45-fb88-4dca-ace6-5a960156e3ac) 
+
 
 ## 📦 Como Contribuir  
 
