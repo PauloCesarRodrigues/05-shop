@@ -14,16 +14,34 @@ import Link from "next/link"
 
 import cartIcon from '@/assets/cart/cartIconWhite.svg'
 
+import { useShoppingCart } from 'use-shopping-cart'
+
 interface HomeProps{
   products:{
     id: string,
     name: string,
     imageUrl: string,
-    price: string
-  }[]
+    formattedPrice: string,
+    description: string,
+    price: number
+    sku:string
+    priceId: string
+  }[],
+  changeCartVisibility: (arg0: boolean) => void;
 }
 
-export default function Home({products}: HomeProps) {
+interface ProductProps{
+  id: string,
+  name: string,
+  imageUrl: string,
+  formattedPrice: string,
+  description: string,
+  price: number
+  sku:string
+  priceId: string
+}
+
+export default function Home({products, changeCartVisibility}: HomeProps) {
   const [sliderRef] = useKeenSlider({
     slides:{
       perView: 3,
@@ -31,6 +49,36 @@ export default function Home({products}: HomeProps) {
     }
   })
 
+  const {addItem, cartDetails} = useShoppingCart()
+
+  async function handleBuyProduct(product: ProductProps) {
+    const CartProduct = {
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      imageUrl: product.imageUrl,
+      description: product.description,
+      currency: "BRL",
+      sku: product.sku,
+      priceId: product.priceId
+    };
+
+    const productId = product.id
+
+
+    
+    if (cartDetails && cartDetails[productId] && cartDetails[productId].quantity >= 1) return
+
+
+    addItem(CartProduct)
+
+    console.log('produto:' + CartProduct)
+    console.log('priceId:' + CartProduct.priceId)
+    
+    setTimeout(()=>{
+      changeCartVisibility(false)
+    },300)
+}
 
   return (
     <>
@@ -41,15 +89,22 @@ export default function Home({products}: HomeProps) {
     <HomeContainer ref={sliderRef} className="keen-slider">
       {products.map(product =>{
         return(
-          <Link key={product.id} href={`/product/${product.id}`} prefetch={false}>
-          <Product className="keen-slider__slide" >
+          <Link key={product.id} href={`/product/${product.id}`} prefetch={false} onClick={() => changeCartVisibility(true)}>
+          <Product className="keen-slider__slide">
             <Image src={product.imageUrl} width={520} height={480} alt=""/>
             <footer>
               <div>
                 <strong>{product.name}</strong>
-                <span>{product.price}</span>
+                <span>{product.formattedPrice}</span>
               </div>
-              <button><Image src={cartIcon} alt="" width={24} height={24}/></button>
+              <button onClick={(e) => 
+                { 
+                  e.stopPropagation();
+                  e.preventDefault();
+                  handleBuyProduct(product);
+                }
+              }>
+                <Image src={cartIcon} alt="" width={24} height={24}/></button>
             </footer>
           </Product>
           </Link>
@@ -73,12 +128,16 @@ export const getStaticProps: GetStaticProps = async () => {
       id: product.id,
       name: product.name,
       imageUrl: product.images[0],
-      price: price.unit_amount ? 
+      formattedPrice: price.unit_amount ? 
       new Intl.NumberFormat('pt-Br',{
         style: "currency",
         currency: 'BRL'
       }).format(price.unit_amount / 100)
-      : 0
+      : 0,
+      description: product.description,
+      price: price.unit_amount ? price.unit_amount: 0,
+      sku: product.id,
+      priceId: price.id
     }
   })
 

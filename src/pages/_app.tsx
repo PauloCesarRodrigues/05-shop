@@ -1,25 +1,21 @@
-"use-client";
-
 import { globalStyles } from "@/styles/global";
 import type { AppProps } from "next/app";
 
-import logoImg from "@/assets/logo.svg";
-import cartIcon from "@/assets/cart/cartIconGray.svg";
-
-import Image from "next/image";
 import { useState } from "react";
-import { CartComponent } from "@/components/Cart";
-import { Container, Header } from "@/styles/pages/app";
-import Link from "next/link";
+import { CartComponent } from "@/components/CartComponent";
+import { Container } from "@/styles/pages/app";
 import Cart from "@/context/cartProvider";
+
+
+import { HeaderComponent } from "@/components/HeaderComponent";
 
 globalStyles();
 
 export default function App({ Component, pageProps }: AppProps) {
   const [isCartClosed, setIsCartClosed] = useState(false);
 
-  function handleOpenCart() {
-    setIsCartClosed(!isCartClosed);
+  function changeCartVisibility(boolean: boolean){
+    setIsCartClosed(!boolean)
   }
 
   return (
@@ -30,15 +26,11 @@ export default function App({ Component, pageProps }: AppProps) {
       />
 
       <Container>
-        <Header>
-          <Link href={"/"}>
-            <Image src={logoImg} alt="logo ignite" />
-          </Link>
-          <button onClick={() => handleOpenCart()}>
-            <Image src={cartIcon} alt="Carrinho" width={24} height={24} />
-          </button>
-        </Header>
-        <Component {...pageProps} />
+          <HeaderComponent changeCartVisibility={changeCartVisibility}/>
+        <Component 
+          {...pageProps}
+          changeCartVisibility={changeCartVisibility}
+        />
       </Container>
     </Cart>
   );

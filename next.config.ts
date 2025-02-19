@@ -5,7 +5,7 @@ const nextConfig: NextConfig = {
   reactStrictMode: true,
 
   images:{
-    domains: ['files.stripe.com']
+    domains: ['files.stripe.com', 'github.com']
   }
 };
 

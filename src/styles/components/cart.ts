@@ -1,6 +1,6 @@
 import { styled } from ".."
 
-export const Cart = styled('sidebar',{
+export const Cart = styled('aside',{
   position: 'absolute',
   top: 0,
   right: 0,
@@ -119,4 +119,10 @@ export const CartFinishOrderButton = styled('button',{
   color: '$white',
   fontWeight: 'bold',
   fontSize: '1rem',
+
+'&:disabled': {
+  backgroundColor: '$green500',
+  cursor: 'not-allowed'
+}
+
 })
